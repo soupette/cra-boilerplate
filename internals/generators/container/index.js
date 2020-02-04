@@ -24,6 +24,12 @@ module.exports = {
         return "The name is required";
       },
     },
+    {
+      type: "confirm",
+      name: "wantReducer",
+      default: true,
+      message: "Do you want a reducer tuple for this container?",
+    },
   ],
   actions: data => {
     // Generate {{properCase name}}.js index.js and {{properCase name}}.test.js
@@ -42,6 +48,21 @@ module.exports = {
       type: "prettify",
       path: "/containers/",
     });
+
+    if (data.wantReducer) {
+      actions.push({
+        type: "add",
+        path: "../../src/containers/{{properCase name}}/reducer.js",
+        templateFile: "./container/reducer.js.hbs",
+        abortOnFail: true,
+      });
+      actions.push({
+        type: "add",
+        path: "../../src/containers/{{properCase name}}/init.js",
+        templateFile: "./container/init.js.hbs",
+        abortOnFail: true,
+      });
+    }
 
     return actions;
   },

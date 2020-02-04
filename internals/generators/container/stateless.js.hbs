@@ -1,13 +1,24 @@
 /**
- *
- * {{ properCase name }}
- *
- */
-
+*
+* {{ properCase name }}
+*
+*/
+{{#if wantReducer}}
+import React, { useReducer } from 'react';
+{{else}}
 import React from 'react';
+{{/if}}
 // import PropTypes from 'prop-types';
+{{#if wantReducer}}
+import reducer, { initialState } from './reducer';
+import init from './init';
+{{/if}}
 
 function {{ properCase name }}() {
+  {{#if wantReducer}}
+  const [reducerState, dispatch] = useReducer(reducer, initialState, init);
+  {{/if}}
+
   return (
     <div>
       {{ properCase name }}
